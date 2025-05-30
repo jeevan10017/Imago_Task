@@ -102,13 +102,6 @@ const ChatToolbox = ({ onRefresh, onCopy, onTextToSpeech, isPlaying }) => {
         >
           {copied ? <Check size={16} className="text-green-600" /> : <Clipboard size={16} />}
         </button>
-        <div className="absolute left-12 lg:left-full lg:ml-2 top-1/2 transform -translate-y-1/2 
-                       bg-gray-800 text-white text-xs px-2 py-1 rounded 
-                       transition-opacity duration-200
-                       pointer-events-none whitespace-nowrap z-50
-                       ${copied ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}">
-          {copied ? "Copied!" : "Copy to clipboard"}
-        </div>
       </div>
 
       <ToolButton
