@@ -23,10 +23,10 @@ export const ThemeProvider = ({ children }) => {
     colors: {
       bg: {
         primary: isDarkMode ? 'bg-gray-950' : 'bg-white',
-        secondary: isDarkMode ? 'bg-zinc-900' : 'bg-gray-50',
+        secondary: isDarkMode ? 'bg-zinc-900' : 'bg-[#E7E7E780]',
         tertiary: isDarkMode ? 'bg-zinc-800' : 'bg-white',
-        input: isDarkMode ? 'bg-zinc-800' : 'bg-gray-50',
-        card: isDarkMode ? 'bg-zinc-800' : 'bg-gray-50',
+        input: isDarkMode ? 'bg-zinc-800' : 'bg-white',
+        card: isDarkMode ? 'bg-zinc-800' : 'bg-[#E7E7E780]',
         accent: isDarkMode ? 'bg-gradient-to-r from-[#2F82EF] to-[#FF3B3B]' : 'bg-gradient-to-r from-[#2F82EF] to-[#FF3B3B]',
       },
       text: {

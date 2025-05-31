@@ -23,7 +23,7 @@ const ChatHistoryMessage = ({ chat, isExpanded, onChatToggle, onChatSelect }) =>
 
   return (
     <div 
-      className={`${colors.bg.tertiary} rounded-xl sm:rounded-2xl p-4 sm:p-5 lg:p-6 shadow-sm ${colors.border.primary} border cursor-pointer hover:opacity-80 transition-all duration-300 ${
+      className={`${colors.bg.tertiary} rounded-xl sm:rounded-2xl p-4 sm:p-5 lg:p-6 shadow-sm ${colors.border.primary} border opacity-95 cursor-pointer hover:opacity-100 transition-all duration-300 ${
         isExpanded ? 'ring-2 ring-blue-500/20' : ''
       }`}
       onClick={handleChatClick}
@@ -35,21 +35,17 @@ const ChatHistoryMessage = ({ chat, isExpanded, onChatToggle, onChatSelect }) =>
           className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 ${colors.border.secondary} flex-shrink-0 mt-1`}
         />
         
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2 mb-2">
+        <div className="flex-1 min-w-0 relative">
+          <div className="absolute -top-2 right-0 z-10">
+            <span className={`${colors.text.muted} text-xs sm:text-sm whitespace-nowrap`}>
+              {chat.timestamp}
+            </span>
+          </div>
+          
+          <div className="mb-2 pr-16 sm:pr-20">
             <h3 className={`font-semibold ${colors.text.primary} text-sm sm:text-base line-clamp-2`}>
               {chat.question}
             </h3>
-            <div className="flex items-center gap-2">
-              <span className={`${colors.text.muted} text-xs sm:text-sm flex-shrink-0`}>
-                {chat.timestamp}
-              </span>
-              {isExpanded ? (
-                <ChevronUp size={16} className={`${colors.text.muted} flex-shrink-0`} />
-              ) : (
-                <ChevronDown size={16} className={`${colors.text.muted} flex-shrink-0`} />
-              )}
-            </div>
           </div>
           
           <p className={`${colors.text.secondary} text-sm line-clamp-2 leading-relaxed`}>
@@ -88,7 +84,7 @@ const ChatHistoryMessage = ({ chat, isExpanded, onChatToggle, onChatSelect }) =>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <button 
                     onClick={handleViewFullChat}
-                    className={`px-3 py-1.5 ${colors.bg.accent} text-white rounded-lg text-xs hover:opacity-90 transition-opacity duration-200`}
+                    className={`px-3 py-1.5 ${colors.bg.accent} text-white rounded-lg text-xs hover:opacity-110 transition-opacity duration-200`}
                   >
                     View Full Chat
                   </button>

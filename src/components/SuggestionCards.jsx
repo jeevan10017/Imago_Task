@@ -60,7 +60,7 @@ const SuggestionCards = ({ onSuggestionClick, isInputFocused }) => {
           style={{
             background: `
               linear-gradient(${colors.bg.card === 'bg-zinc-800' ? '#27272A' : 'white'}, ${colors.bg.card === 'bg-zinc-800' ? '#27272A' : 'white'}) padding-box,
-              linear-gradient(135deg, ${suggestion.bColor} 0%, transparent 70%) border-box
+              linear-gradient(135deg, ${suggestion.bColor} 0%, transparent 80%) border-box
             `,
             border: "1px solid transparent",
             backgroundClip: "padding-box, border-box",
