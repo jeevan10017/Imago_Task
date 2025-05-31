@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider, useTheme } from "./ThemeContext";
 import Sidebar from "./components/Sidebar";
 import DashboardView from "./pages/DashboardView";
@@ -15,6 +15,31 @@ const ChatAppContent = () => {
   const [currentChatData, setCurrentChatData] = useState(null); 
   const [attachedFile, setAttachedFile] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState('100vh');
+
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      setViewportHeight(`${window.innerHeight}px`);
+    };
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
+    const handleScroll = () => {
+      setTimeout(setVH, 100);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleSubmit = () => {
     if (message.trim()) {
@@ -77,8 +102,14 @@ const ChatAppContent = () => {
   };
 
   return (
-    <div className={`h-screen max-h-screen ${colors.bg.primary} p-1 sm:p-6 lg:p-12 flex gap-1 sm:gap-4 lg:gap-8 overflow-hidden relative`}>
-
+    <div 
+      className={`${colors.bg.primary} p-1 sm:p-6 lg:p-12 flex gap-1 sm:gap-4 lg:gap-8 overflow-hidden relative`}
+      style={{ 
+        height: viewportHeight,
+        maxHeight: viewportHeight,
+        minHeight: viewportHeight
+      }}
+    >
       <Sidebar 
         onBackToDashboard={handleBackToDashboard}
         onShowHistory={handleShowHistory}
@@ -86,7 +117,6 @@ const ChatAppContent = () => {
       />
 
       <div className="flex-1 relative overflow-hidden">
-
         <DashboardView 
           showChat={showChat || showHistory}
           message={message}
@@ -108,7 +138,7 @@ const ChatAppContent = () => {
           onBackToDashboard={handleBackToDashboard}
           message={message}
           setMessage={setMessage}
-          onSubmit={handleSubmit}
+           onSubmit={handleSubmit}
           attachedFile={attachedFile}
           onFileAttach={handleFileAttach}
           onRemoveFile={handleRemoveFile}
