@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
         tertiary: isDarkMode ? 'bg-zinc-800' : 'bg-white',
         input: isDarkMode ? 'bg-zinc-800' : 'bg-gray-50',
         card: isDarkMode ? 'bg-zinc-800' : 'bg-gray-50',
-        accent: isDarkMode ? 'bg-blue-600' : 'bg-blue-500',
+        accent: isDarkMode ? 'bg-gradient-to-r from-[#2F82EF] to-[#FF3B3B]' : 'bg-gradient-to-r from-[#2F82EF] to-[#FF3B3B]',
       },
       text: {
         primary: isDarkMode ? 'text-white' : 'text-gray-900',

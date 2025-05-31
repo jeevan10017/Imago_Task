@@ -44,9 +44,9 @@ const ChatToolbox = ({ onRefresh, onCopy, onTextToSpeech, isPlaying }) => {
           w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 
           flex items-center justify-center 
           ${isActive ? 'bg-blue-100 text-blue-600' : `${colors.button.icon} ${colors.hover.bgSecondary}`}
-          hover:scale-110 active:scale-95
+          hover:scale-105 active:scale-95
           transition-all duration-200 rounded-lg mx-1 lg:mx-0 my-0 lg:my-1
-          shadow-sm hover:shadow-md
+          
         `}
       >
         {children}

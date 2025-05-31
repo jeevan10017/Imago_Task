@@ -10,20 +10,20 @@ const SuggestionCards = ({ onSuggestionClick, isInputFocused }) => {
     {
       text: "Create an image for my presentation",
       icon: <ImagePlus size={16} className="text-blue-500 sm:w-5 sm:h-5" />,
-      bColor: "#2196F3",
-      bColor1: "#055da3",
+      bColor: "#055da3",
+      bColor1: "#2196F3",
     },
     {
       text: "What to do with kids' art",
       icon: <Lightbulb size={16} className="text-orange-500 sm:w-5 sm:h-5" />,
-      bColor: "#FF9800",
-      bColor1: "#b06a04",
+      bColor: "#b06a04",
+      bColor1: "#FF9800",
     },
     {
       text: "Find the decade that a photo is from",
       icon: <Eye size={16} className="text-green-500 sm:w-5 sm:h-5" />,
-      bColor: "#4CAF50",
-      bColor1: "#047808",
+      bColor: "#047808",
+      bColor1: "#4CAF50",
     },
   ];
 

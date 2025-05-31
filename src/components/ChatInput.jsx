@@ -186,7 +186,7 @@ const ChatInput = ({
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion.text)}
-                  className={`w-full text-left px-4 py-3 ${colors.text.primary} ${colors.hover.bg} transition-all duration-200 rounded-xl text-base flex items-center gap-3 transform hover:scale-[1.01]`}
+                  className={`w-full text-left px-4 py-3 ${colors.text.primary} ${colors.hover.bg} transition-all duration-200 rounded-xl text-base flex items-center gap-3 `}
                   style={{
                     animationDelay: animationState === 'entering' ? `${index * 80}ms` : '0ms',
                     fontFamily: "system-ui, -apple-system, sans-serif"

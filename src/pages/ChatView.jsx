@@ -5,16 +5,18 @@ import ChatInput from "../components/ChatInput";
 const ChatView = ({ 
   showChat, 
   currentQuestion, 
-  onBackToDashboard, 
-  message, 
-  setMessage, 
+  currentChatData,
+  onBackToDashboard,
+  message,
+  setMessage,
   onSubmit,
   attachedFile,
   onFileAttach,
   onRemoveFile,
   showSuggestions,
   onInputFocus,
-  onInputBlur
+  onInputBlur,
+  onSuggestionClick
 }) => {
   const { colors } = useTheme();
 
@@ -25,13 +27,14 @@ const ChatView = ({
       }`}
     >
       <ChatMessage 
-        question={currentQuestion} 
+        question={currentQuestion}
+        chatData={currentChatData} 
         onBackToDashboard={onBackToDashboard}
       />
-
-      <ChatInput 
-        message={message} 
-        setMessage={setMessage} 
+      
+      <ChatInput
+        message={message}
+        setMessage={setMessage}
         onSubmit={onSubmit}
         placeholder="Ask anything from here"
         attachedFile={attachedFile}
@@ -40,10 +43,10 @@ const ChatView = ({
         showSuggestions={showSuggestions}
         onInputFocus={onInputFocus}
         onInputBlur={onInputBlur}
+        onSuggestionClick={onSuggestionClick}
       />
     </div>
   );
 };
-
 
 export default ChatView;

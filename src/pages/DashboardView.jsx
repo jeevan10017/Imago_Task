@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SuggestionCards from "../components/SuggestionCards";
 import ChatInput from "../components/ChatInput";
 import { useTheme } from "../ThemeContext";
@@ -16,8 +16,14 @@ const DashboardView = ({
   onInputFocus,
   onInputBlur
 }) => {
-  const { colors } = useTheme();
+  const { colors, isDarkMode } = useTheme();
   const [isInputFocused, setIsInputFocused] = useState(false);
+
+  useEffect(() => {
+    if (!showChat) {
+      setIsInputFocused(false);
+    }
+  }, [showChat]);
 
   const handleInputFocus = () => {
     setIsInputFocused(true);
@@ -41,7 +47,9 @@ const DashboardView = ({
       }`}
     >
       <div
-        className="absolute right-4 sm:right-8 lg:right-12 top-1/2 transform -translate-y-1/2 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-contain bg-no-repeat bg-center opacity-90 pointer-events-none z-0 hidden lg:block"
+        className={`absolute right-4 sm:right-8 lg:right-12 top-1/2 transform -translate-y-1/2 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-contain bg-no-repeat bg-center pointer-events-none z-0 hidden lg:block ${
+          isDarkMode ? 'opacity-60' : 'opacity-100'
+        }`}
         style={{
           backgroundImage: `url('./robot.png')`,
           backgroundSize: "contain",

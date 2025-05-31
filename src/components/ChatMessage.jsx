@@ -1,9 +1,9 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Edit, ArrowUp } from "lucide-react";
 import { useTheme } from "../ThemeContext";
 import ChatToolbox from "./ChatToolbox";
 
-const ChatMessage = ({ question, onBackToDashboard }) => {
+const ChatMessage = ({ question, chatData, onBackToDashboard }) => {
   const { colors } = useTheme();
   const [showChart, setShowChart] = useState(false);
 
@@ -12,7 +12,8 @@ const ChatMessage = ({ question, onBackToDashboard }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const chatAnswer = {
+ 
+  const defaultQuarterlySalesData = {
     text: "Based on your quarterly sales data, I've analyzed the trends and created a comprehensive visualization. Here's what the data reveals:",
     points: [
       {
@@ -26,6 +27,21 @@ const ChatMessage = ({ question, onBackToDashboard }) => {
     ],
     summary: "The data suggests a positive trajectory with opportunities for expansion in emerging markets and continued focus on seasonal campaigns."
   };
+
+  const chatAnswer = chatData?.fullContent || defaultQuarterlySalesData;
+
+
+  const isDesignChat = question?.toLowerCase().includes('design') || 
+                      question?.toLowerCase().includes('ui') || 
+                      question?.toLowerCase().includes('ux') ||
+                      question?.toLowerCase().includes('wireframe') ||
+                      question?.toLowerCase().includes('color');
+
+  const isDataChat = question?.toLowerCase().includes('data') ||
+                    question?.toLowerCase().includes('sales') ||
+                    question?.toLowerCase().includes('quarterly') ||
+                    question?.toLowerCase().includes('visualization') ||
+                    question?.toLowerCase().includes('chart');
 
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -61,19 +77,18 @@ const ChatMessage = ({ question, onBackToDashboard }) => {
         </div>
       </div>
 
-      {/* Main Chat Area */}
+
       <div className="flex-1 flex gap-3 sm:gap-4 lg:gap-8 min-h-0 overflow-hidden">
         <div className={`flex-1 ${colors.bg.tertiary} rounded-xl sm:rounded-2xl shadow-sm ${colors.border.primary} border overflow-hidden flex flex-col`}>
           <div className={`sticky top-0 ${colors.bg.tertiary} p-3 sm:p-4 lg:p-6 pb-0 z-10`}>
-           <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-  <img 
-    src="./logo.png"
-    alt="User logo"
-    className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 ${colors.border.secondary}  flex-shrink-0 mt-0`}
-  />
-  <h2 className={`text-base sm:text-lg font-semibold ${colors.text.primary}`}>Imago AI</h2>
-</div>
-
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <img 
+                src="./logo.png"
+                alt="Assistant logo"
+                className={`w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 ${colors.border.secondary} flex-shrink-0 mt-0`}
+              />
+              <h2 className={`text-base sm:text-lg font-semibold ${colors.text.primary}`}>{question}</h2>
+            </div>
             <hr className={`border-t ${colors.border.secondary}`} />
           </div>
           
@@ -83,48 +98,51 @@ const ChatMessage = ({ question, onBackToDashboard }) => {
                 {chatAnswer.text}
               </p>
 
-              <div className={`${colors.bg.input} rounded-xl p-4 ${colors.border.primary} border`}>
-                {showChart ? (
-                  <div className="space-y-4">
-                    <h3 className={`font-semibold ${colors.text.primary} text-sm`}>Quarterly Sales Performance</h3>
-                    <div className="h-48 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-end justify-around p-4">
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 bg-blue-500 rounded-t" style={{height: '60px'}}></div>
-                        <span className={`text-xs ${colors.text.muted} mt-2`}>Q1</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 bg-green-500 rounded-t" style={{height: '80px'}}></div>
-                        <span className={`text-xs ${colors.text.muted} mt-2`}>Q2</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 bg-yellow-500 rounded-t" style={{height: '70px'}}></div>
-                        <span className={`text-xs ${colors.text.muted} mt-2`}>Q3</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 bg-purple-500 rounded-t" style={{height: '100px'}}></div>
-                        <span className={`text-xs ${colors.text.muted} mt-2`}>Q4</span>
+              {((isDataChat && !isDesignChat) || (!chatData && !isDesignChat)) && (
+                <div className={`${colors.bg.input} rounded-xl p-4 ${colors.border.primary} border`}>
+                  {showChart ? (
+                    <div className="space-y-4">
+                      <h3 className={`font-semibold ${colors.text.primary} text-sm`}>Quarterly Sales Performance</h3>
+                      <div className="h-48 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg flex items-end justify-around p-4">
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 bg-blue-500 rounded-t" style={{height: '60px'}}></div>
+                          <span className={`text-xs ${colors.text.muted} mt-2`}>Q1</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 bg-green-500 rounded-t" style={{height: '80px'}}></div>
+                          <span className={`text-xs ${colors.text.muted} mt-2`}>Q2</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 bg-yellow-500 rounded-t" style={{height: '70px'}}></div>
+                          <span className={`text-xs ${colors.text.muted} mt-2`}>Q3</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 bg-purple-500 rounded-t" style={{height: '100px'}}></div>
+                          <span className={`text-xs ${colors.text.muted} mt-2`}>Q4</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="h-48 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                  </div>
-                )}
-              </div>
+                  ) : (
+                    <div className="h-48 flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                    </div>
+                  )}
+                </div>
+              )}
 
-              {/* Answer Points */}
+    
+
               <div className="space-y-3 sm:space-y-4">
                 {chatAnswer.points.map((point, index) => (
                   <div key={index} className="flex gap-2 sm:gap-3">
-                    <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full mt-1.5 sm:mt-2 flex-shrink-0`}></div>
+                    <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${isDesignChat ? 'bg-purple-500' : 'bg-blue-500'} rounded-full mt-1.5 sm:mt-2 flex-shrink-0`}></div>
                     <div className="text-sm sm:text-base">
                       <span className={`font-semibold ${colors.text.primary}`}>{point.title}</span>
                       <span className={`${colors.text.secondary}`}> {point.description}</span>
                     </div>
                   </div>
                 ))}
-              </div>
+              </div>      
               <p className={`${colors.text.secondary} leading-relaxed text-sm sm:text-base`}>
                 {chatAnswer.summary}
               </p>
@@ -166,6 +184,5 @@ const ChatMessage = ({ question, onBackToDashboard }) => {
     </div>
   );
 };
-
 
 export default ChatMessage;
